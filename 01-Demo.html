@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js 实现图片组成的文字效果</title>
+    <!-- <script src="./p5.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // const grid = [
+        //     [1, 1, 1, 1, 1],
+        //     [1, 0, 0, 0, 1],
+        //     [1, 0, 1, 0, 1],
+        //     [1, 0, 0, 0, 1],
+        //     [1, 1, 1, 1, 1],
+        // ];
+        const grid = [
+            [1, 0, 0, 0, 1],
+            [0, 1, 0, 1, 0],
+            [0, 0, 1, 0, 0],
+            [0, 1, 0, 1, 0],
+            [1, 0, 0, 0, 1],
+        ];
+
+        // let img;
+        const num = 9;
+        const images = [];
+
+        function preload() {
+            // https://www.esbnyc.com/about/tower-lights/calendar
+            // img = loadImage('./images/0.jpeg');
+            for (let i = 1; i <= num; i++) {
+                const img = loadImage(`./images/${i}.jpeg`);
+                images.push(img);
+            }
+        }
+
+        function setup() {
+            createCanvas(400, 400);
+            background('#e6fcf5');
+
+            noStroke();
+            fill('#0ca678');
+            // rect(50, 50, 100, 100);
+            for (let y = 0; y < grid.length; y++) {
+                const row = grid[y];
+                for (let x = 0; x < row.length; x++) {
+                    if (row[x] === 1) {
+                        // rect(x * width / row.length, y * height / grid.length, width / row.length, height / grid.length);
+                        image(img, x * width / row.length, y * height / grid.length, width / row.length, height / grid.length);
+                    }
+                }
+            }
+        }
+
+        function keyTyped() {
+            // 按 s 键保存图片
+            if (key === 's') {
+                saveCanvas('image', 'png');
+            }
+        }
+    </script>
+</body>
+
+</html>
